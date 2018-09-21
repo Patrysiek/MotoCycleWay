@@ -25,10 +25,12 @@ public class MenuActivity extends Activity{
     }
 
     public void setSettingsActivity(View view){
-
+startActivity(new Intent(this,SettingsActivity.class));
     }
 
     public void exit(View view){
+        finishAffinity();
 
+        System.exit(0);
     }
 }

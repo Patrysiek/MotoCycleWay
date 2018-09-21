@@ -26,18 +26,20 @@
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="50dp"
             android:layout_weight="1"
             android:onClick="setGameActivity"
-            android:text="Graj !" />
+            android:text="@string/play_button" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="50dp"
             android:layout_weight="1"
             android:onClick="setSettingsActivity"
-            android:text="Opcje" />
+            android:text="@string/settings_button" />
 
         <Button
             android:id="@+id/button3"
@@ -45,7 +47,8 @@
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:onClick="exit"
-            android:text="Wyjdź" />
+            android:text="@string/exit_button"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
