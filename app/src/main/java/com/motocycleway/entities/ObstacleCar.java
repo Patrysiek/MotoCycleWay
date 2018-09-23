@@ -6,11 +6,13 @@ import android.graphics.Canvas;
 public class ObstacleCar {
 
 
-    float x,y;
-    float xVelo,yVelo;
+    float x,y = 0;
+    float yVelo;
     private Bitmap bitmap;
     public ObstacleCar(Bitmap bitmap){
+
         this.bitmap = bitmap;
+        this.yVelo +=GameView.motobike.getyVelocity();
     }
 
 
@@ -20,6 +22,6 @@ public class ObstacleCar {
     }
 
     public void update(){
-        y++;
+        y+=yVelo;
     }
 }

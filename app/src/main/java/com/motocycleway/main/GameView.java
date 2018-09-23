@@ -12,30 +12,25 @@ import android.view.SurfaceView;
 
 class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
-    MainThread thread;
-    Street street;
-    Line line;
-    Lines lines;
-    Motobike motobike;
-    ObstacleCar obstacleCar;
-
+    static private MainThread thread;
+    static private Street street;
+    static public Motobike motobike;
+    static private ObstacleCar obstacleCar;
     public GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(),this);
         setFocusable(true);
-
     }
 
 
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
-        street = new Street(BitmapFactory.decodeResource(getResources(),R.drawable.bg));
-        lines = new Lines(BitmapFactory.decodeResource(getResources(),R.drawable.short_line));
-        obstacleCar = new ObstacleCar(BitmapFactory.decodeResource(getResources(),R.drawable.obstacle_car));
         motobike = new Motobike(BitmapFactory.decodeResource(getResources(),R.drawable.player_bike));
+        street = new Street(BitmapFactory.decodeResource(getResources(),R.drawable.road));
+        obstacleCar = new ObstacleCar(BitmapFactory.decodeResource(getResources(),R.drawable.obstacle_car));
+
 
             thread.setRunning(true);
             thread.start();
@@ -73,7 +68,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
             street.draw(canvas);
             motobike.draw(canvas);
             obstacleCar.draw(canvas);
-            lines.draw(canvas);
+
         }
 
     }
@@ -93,4 +88,5 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
         return super.onTouchEvent(event);
     }
+
 }
