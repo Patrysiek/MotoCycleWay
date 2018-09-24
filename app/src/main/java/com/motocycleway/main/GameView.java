@@ -34,8 +34,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         linesManager = new LinesManager(BitmapFactory.decodeResource(getResources(),R.drawable.short_line));
 
         thread.setRunning(true);
-        if(thread.getState()==Thread.State.NEW)
-            thread.start();
+        thread.start();
     }
 
     @Override

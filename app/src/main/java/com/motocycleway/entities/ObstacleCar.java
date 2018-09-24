@@ -9,14 +9,13 @@ import com.motocycleway.main.GameView;
 public class ObstacleCar {
 
 
-    float x,y = 0;
-    float yVelo;
+    private  float x,y = 0;
+    float yVelo = 2;
     private Bitmap bitmap;
-    private float[] xPositions = {SettingsActivity.WIDTH/4-getWidth(),SettingsActivity.WIDTH/2-getWidth(),
-    SettingsActivity.WIDTH/2+getWidth(),SettingsActivity.WIDTH*3/4+getWidth()};
+
     public ObstacleCar(Bitmap bitmap){
 
-        this.bitmap=Bitmap.createScaledBitmap(bitmap, SettingsActivity.WIDTH/5,SettingsActivity.HEIGHT/4,false);
+        this.bitmap=bitmap;
         this.yVelo += GameView.motobike.getyVelocity();
     }
 
@@ -34,10 +33,34 @@ public class ObstacleCar {
         return this.bitmap.getHeight();
     }
     public float getWidth(){
-        return this.bitmap.getWidth();
+        if(bitmap!=null)
+            return this.bitmap.getWidth();
+        else
+            return 0;
     }
 
-    public float getxPositions(int i ) {
-        return xPositions[i];
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float getyVelo() {
+        return yVelo;
+    }
+
+    public void setyVelo(float yVelo) {
+        this.yVelo = yVelo;
     }
 }

@@ -13,7 +13,7 @@ public class Motobike {
     private float x;
     private float y;
     private float xVelocity;
-    private float yVelocity = 5;
+    private float yVelocity = 10;
     public Motobike(Bitmap bitmap){
         this.bitmap = Bitmap.createScaledBitmap(bitmap, SettingsActivity.WIDTH/8,SettingsActivity.HEIGHT/5,false);
         x = Resources.getSystem().getDisplayMetrics().widthPixels/2;
@@ -41,5 +41,10 @@ public class Motobike {
 
     public void setyVelocity(float yVelocity) {
         this.yVelocity = yVelocity;
+    }
+
+
+    public void update(){
+
     }
 }
