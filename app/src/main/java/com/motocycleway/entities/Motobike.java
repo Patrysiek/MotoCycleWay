@@ -1,9 +1,11 @@
-package com.motocycleway;
+package com.motocycleway.entities;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
+
+import com.motocycleway.activities.SettingsActivity;
 
 public class Motobike {
 
@@ -13,7 +15,7 @@ public class Motobike {
     private float xVelocity;
     private float yVelocity = 5;
     public Motobike(Bitmap bitmap){
-        this.bitmap = bitmap;
+        this.bitmap = Bitmap.createScaledBitmap(bitmap, SettingsActivity.WIDTH/8,SettingsActivity.HEIGHT/5,false);
         x = Resources.getSystem().getDisplayMetrics().widthPixels/2;
         y = Resources.getSystem().getDisplayMetrics().heightPixels-bitmap.getHeight()-100;
 

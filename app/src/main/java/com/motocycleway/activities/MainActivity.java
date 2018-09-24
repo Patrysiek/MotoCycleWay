@@ -1,9 +1,11 @@
-package com.motocycleway;
+package com.motocycleway.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.motocycleway.R;
 
 public class MainActivity extends Activity {
 

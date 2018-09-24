@@ -1,21 +1,25 @@
-package com.motocycleway;
+package com.motocycleway.main;
 
 import android.content.Context;
-
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.motocycleway.R;
+import com.motocycleway.entities.Motobike;
+import com.motocycleway.entities.ObstacleCar;
+import com.motocycleway.entities.ObstacleCarManager;
+import com.motocycleway.street.LinesManager;
 
-class GameView extends SurfaceView implements SurfaceHolder.Callback {
+
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     static private MainThread thread;
-    static private Street street;
     static public Motobike motobike;
-    static private ObstacleCar obstacleCar;
+    static private ObstacleCarManager obstacleCarManager;
+    private LinesManager linesManager;
     public GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
@@ -23,18 +27,15 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
     }
 
-
-
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        motobike = new Motobike(BitmapFactory.decodeResource(getResources(),R.drawable.player_bike));
-        street = new Street(BitmapFactory.decodeResource(getResources(),R.drawable.road));
-        obstacleCar = new ObstacleCar(BitmapFactory.decodeResource(getResources(),R.drawable.obstacle_car));
+        motobike = new Motobike(BitmapFactory.decodeResource(getResources(), R.drawable.player_bike));
+        obstacleCarManager = new ObstacleCarManager(BitmapFactory.decodeResource(getResources(),R.drawable.obstacle_car));
+        linesManager = new LinesManager(BitmapFactory.decodeResource(getResources(),R.drawable.short_line));
 
-
-            thread.setRunning(true);
+        thread.setRunning(true);
+        if(thread.getState()==Thread.State.NEW)
             thread.start();
-
     }
 
     @Override
@@ -58,32 +59,27 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-        obstacleCar.update();
+        //obstacleCarManager.update();
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         if(canvas!=null){
-            street.draw(canvas);
+            linesManager.draw(canvas);
             motobike.draw(canvas);
-            obstacleCar.draw(canvas);
+            obstacleCarManager.draw(canvas);
 
         }
 
     }
-
-
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-
                 motobike.setX(event.getX());
-                Log.i("blabla",String.valueOf(motobike.getX()));
                 return true;
         }
         return super.onTouchEvent(event);

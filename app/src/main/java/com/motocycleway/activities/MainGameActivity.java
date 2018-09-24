@@ -1,8 +1,10 @@
-package com.motocycleway;
+package com.motocycleway.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
+import com.motocycleway.main.GameView;
 
 public class MainGameActivity extends Activity {
 

@@ -1,7 +1,10 @@
-package com.motocycleway;
+package com.motocycleway.main;
 
 import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.view.SurfaceHolder;
+
+import com.motocycleway.R;
 
 public class MainThread extends Thread {
     private SurfaceHolder surfaceHolder;
@@ -13,6 +16,10 @@ public class MainThread extends Thread {
         super();
         this.surfaceHolder = surfaceHolder;
         this.gameView = gameView;
+        gameView.setBackgroundResource(R.drawable.road);
+        gameView.setZOrderOnTop(true);
+        gameView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
+
     }
 
     @Override
