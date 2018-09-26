@@ -16,7 +16,8 @@ public class LinesManager {
     private int lineheight = SettingsActivity.HEIGHT/6;
     private int rCoordX = SettingsActivity.WIDTH*3/4+lineWidth;
     private int lCoordX = SettingsActivity.WIDTH/4-lineWidth*2;
-    private float yVelo = GameView.motobike.getyVelocity();
+    private float yVelo = GameView.motobike.getyVelocity()/2;
+
     public LinesManager(Bitmap bitmap){
         this.bitmap = Bitmap.createScaledBitmap(bitmap, lineWidth,lineheight,false);
         initLines();
@@ -44,6 +45,11 @@ public class LinesManager {
             if(l.coordY>SettingsActivity.HEIGHT)
                 l.coordY=(0-lineheight+yVelo);
         }
+    }
+
+
+    public void update(){
+        yVelo = GameView.motobike.getyVelocity()/2;
     }
 
 }

@@ -3,8 +3,6 @@ package com.motocycleway.street;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import com.motocycleway.main.GameView;
-
 
 public class Line {
 

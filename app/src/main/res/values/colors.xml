@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorActivityTitle">#66222222</color>
+    <color name="main_game_layout_bg">#11000000</color>
 </resources>

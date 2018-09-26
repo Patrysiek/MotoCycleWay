@@ -3,16 +3,17 @@ package com.motocycleway.main;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+
 import com.motocycleway.R;
+import com.motocycleway.activities.MainGameActivity;
 import com.motocycleway.entities.Motobike;
-import com.motocycleway.entities.ObstacleCar;
 import com.motocycleway.entities.ObstacleCarManager;
 import com.motocycleway.street.LinesManager;
-
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -32,7 +33,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         motobike = new Motobike(BitmapFactory.decodeResource(getResources(), R.drawable.player_bike));
         obstacleCarManager = new ObstacleCarManager(BitmapFactory.decodeResource(getResources(),R.drawable.obstacle_car));
         linesManager = new LinesManager(BitmapFactory.decodeResource(getResources(),R.drawable.short_line));
-
         thread.setRunning(true);
         thread.start();
     }
@@ -58,7 +58,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-        //obstacleCarManager.update();
+
+            linesManager.update();
+            motobike.update();
+            obstacleCarManager.update();
+
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.motocycleway.entities;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.util.Log;
 
 import com.motocycleway.activities.SettingsActivity;
 
@@ -13,11 +12,11 @@ public class Motobike {
     private float x;
     private float y;
     private float xVelocity;
-    private float yVelocity = 10;
+    private float yVelocity = 1;
     public Motobike(Bitmap bitmap){
         this.bitmap = Bitmap.createScaledBitmap(bitmap, SettingsActivity.WIDTH/8,SettingsActivity.HEIGHT/5,false);
         x = Resources.getSystem().getDisplayMetrics().widthPixels/2;
-        y = Resources.getSystem().getDisplayMetrics().heightPixels-bitmap.getHeight()-100;
+        y = Resources.getSystem().getDisplayMetrics().heightPixels-bitmap.getHeight();
 
     }
 
@@ -45,6 +44,7 @@ public class Motobike {
 
 
     public void update(){
-
+        if(yVelocity<20)
+            yVelocity+=(1/yVelocity);
     }
 }

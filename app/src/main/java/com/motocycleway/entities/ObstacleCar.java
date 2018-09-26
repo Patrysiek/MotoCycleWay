@@ -4,44 +4,47 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.motocycleway.activities.SettingsActivity;
-import com.motocycleway.main.GameView;
 
 public class ObstacleCar {
 
 
-    private  float x,y = 0;
-    float yVelo = 2;
+    private float x,y;
+    private float velocity;
     private Bitmap bitmap;
-
-    public ObstacleCar(Bitmap bitmap){
-
+    private int id;
+    ObstacleCar(Bitmap bitmap,int id){
+        this.id = id;
         this.bitmap=bitmap;
-        this.yVelo += GameView.motobike.getyVelocity();
     }
-
 
 
     public void draw(Canvas canvas){
         canvas.drawBitmap(bitmap,x,y,null);
     }
 
-    public void update(){
-        y+=yVelo;
+
+    public boolean equals(ObstacleCar car) {
+        if(this.id == car.id) return true;
+        else return false;
     }
+
+    public boolean overlaps(ObstacleCar car1) {
+        if(!this.equals(car1)) {
+            if (this.x == car1.getX()) {
+                if (((  (this.y + this.getHeight()) > car1.getY() && (this.y + this.getHeight()) < car1.getY() + car1.getHeight()  )) ||
+                        ((this.y > car1.getY() && this.y < (car1.getY() + car1.getHeight()) ))) {
+                    this.y = SettingsActivity.HEIGHT;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
 
     public float getHeight(){
         return this.bitmap.getHeight();
-    }
-    public float getWidth(){
-        if(bitmap!=null)
-            return this.bitmap.getWidth();
-        else
-            return 0;
-    }
-
-
-    public float getX() {
-        return x;
     }
 
     public void setX(float x) {
@@ -56,11 +59,13 @@ public class ObstacleCar {
         this.y = y;
     }
 
-    public float getyVelo() {
-        return yVelo;
+    public float getVelocity() {
+        return velocity;
     }
-
-    public void setyVelo(float yVelo) {
-        this.yVelo = yVelo;
+    public void setVelocity(float velocity) {
+        this.velocity = velocity;
+    }
+    public float getX(){
+        return x;
     }
 }
