@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
-import android.view.MotionEvent;
+import android.graphics.Color;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -13,6 +13,7 @@ import com.motocycleway.R;
 import com.motocycleway.activities.MainGameActivity;
 import com.motocycleway.entities.Motobike;
 import com.motocycleway.entities.ObstacleCarManager;
+import com.motocycleway.entities.Score;
 import com.motocycleway.street.LinesManager;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
@@ -21,6 +22,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     static public Motobike motobike;
     static private ObstacleCarManager obstacleCarManager;
     private LinesManager linesManager;
+    private Score score;
+
     public GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
@@ -30,9 +33,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+
         motobike = new Motobike(BitmapFactory.decodeResource(getResources(), R.drawable.player_bike));
         obstacleCarManager = new ObstacleCarManager(BitmapFactory.decodeResource(getResources(),R.drawable.obstacle_car));
         linesManager = new LinesManager(BitmapFactory.decodeResource(getResources(),R.drawable.short_line));
+        score = new Score(Color.YELLOW);
+
         thread.setRunning(true);
         thread.start();
     }
@@ -58,10 +64,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-
             linesManager.update();
             motobike.update();
             obstacleCarManager.update();
+            score.update(motobike.getPositionPoint());
+
 
     }
 
@@ -71,21 +78,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if(canvas!=null){
             linesManager.draw(canvas);
             motobike.draw(canvas);
-            obstacleCarManager.draw(canvas);
+           obstacleCarManager.draw(canvas);
+            score.draw(canvas);
 
         }
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                motobike.setX(event.getX());
-                return true;
-        }
-        return super.onTouchEvent(event);
-    }
 
 }
