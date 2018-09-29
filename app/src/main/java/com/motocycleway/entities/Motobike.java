@@ -3,6 +3,7 @@ package com.motocycleway.entities;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import com.motocycleway.activities.SettingsActivity;
 
@@ -12,13 +13,14 @@ public class Motobike {
     Bitmap bitmap;
     private float x;
     private float y;
-    private float yVelocity = 3;
+    private float speed = 3;
+    private float velocity = 1f;
     private float deltaPosition = SettingsActivity.WIDTH/5;
     private int positionPoint = 0;
     public Motobike(Bitmap bitmap){
         this.bitmap = Bitmap.createScaledBitmap(bitmap, SettingsActivity.WIDTH/8,SettingsActivity.HEIGHT/5,false);
         x = SettingsActivity.WIDTH/2-bitmap.getWidth()/2;
-        y =SettingsActivity.HEIGHT-bitmap.getHeight()-20;
+        y =SettingsActivity.HEIGHT-bitmap.getHeight()-bitmap.getHeight()/2;
 
     }
 
@@ -29,16 +31,16 @@ public class Motobike {
     }
 
 
-    public float getyVelocity() {
-        return yVelocity;
+    public float getSpeed() {
+        return speed;
     }
 
 
 
     public void update(){
-        if(yVelocity<50) {
-            yVelocity += (float) Math.log(yVelocity);
-
+        if(speed <90 && velocity>0) {
+            speed +=velocity;
+            velocity -=0.001f;
         }
     }
     public void changeLeftPosition(){
@@ -56,7 +58,26 @@ public class Motobike {
 
     }
 
+
+
     public int getPositionPoint() {
         return positionPoint;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public boolean overlaps(ObstacleCar car) {
+
+        if (((  (this.y + this.bitmap.getHeight()) > car.getY() && (this.y + this.bitmap.getHeight()) < car.getY() + car.getHeight()  )) ||
+                ((this.y > car.getY() && this.y < (car.getY() + car.getHeight()) ))) {
+            return true;
+        }
+        return false;
     }
 }

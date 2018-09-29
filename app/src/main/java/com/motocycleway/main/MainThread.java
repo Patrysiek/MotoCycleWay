@@ -9,7 +9,7 @@ import com.motocycleway.R;
 import com.motocycleway.activities.MainGameActivity;
 
 public class MainThread extends Thread {
-    public static final int MAX_FPS = 30;
+        public static final int MAX_FPS = 30;
     private SurfaceHolder surfaceHolder;
     private GameView gameView;
     private boolean running;

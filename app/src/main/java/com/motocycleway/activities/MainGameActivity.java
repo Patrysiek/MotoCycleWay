@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.motocycleway.R;
 import com.motocycleway.main.GameView;
-import com.motocycleway.main.MyGestureListener;
+import com.motocycleway.main.SwipeBikeListener;
 
 public class MainGameActivity extends Activity {
     private GestureDetector mGestureDetector;
@@ -20,8 +20,8 @@ public class MainGameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_game_layout);
 
-        MyGestureListener myGestureListener = new MyGestureListener();
-        mGestureDetector = new GestureDetector(this, myGestureListener);
+        SwipeBikeListener swipeBikeListener = new SwipeBikeListener();
+        mGestureDetector = new GestureDetector(this, swipeBikeListener);
         addLayout();
     }
 

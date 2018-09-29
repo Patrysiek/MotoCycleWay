@@ -10,8 +10,8 @@ import android.view.SurfaceView;
 
 
 import com.motocycleway.R;
-import com.motocycleway.activities.MainGameActivity;
 import com.motocycleway.entities.Motobike;
+import com.motocycleway.entities.ObstacleCar;
 import com.motocycleway.entities.ObstacleCarManager;
 import com.motocycleway.entities.Score;
 import com.motocycleway.street.LinesManager;
@@ -38,9 +38,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         obstacleCarManager = new ObstacleCarManager(BitmapFactory.decodeResource(getResources(),R.drawable.obstacle_car));
         linesManager = new LinesManager(BitmapFactory.decodeResource(getResources(),R.drawable.short_line));
         score = new Score(Color.YELLOW);
-
         thread.setRunning(true);
         thread.start();
+
     }
 
     @Override
@@ -56,6 +56,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             try{
                 thread.setRunning(false);
                 thread.join();
+
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -67,6 +68,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             linesManager.update();
             motobike.update();
             obstacleCarManager.update();
+            CrashDetector.motoCrashWithCar(obstacleCarManager.getMainLineList());
             score.update(motobike.getPositionPoint());
 
 
