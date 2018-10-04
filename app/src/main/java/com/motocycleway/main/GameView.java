@@ -1,6 +1,7 @@
 package com.motocycleway.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
@@ -10,11 +11,13 @@ import android.view.SurfaceView;
 
 
 import com.motocycleway.R;
+
+import com.motocycleway.activities.MenuActivity;
 import com.motocycleway.entities.Motobike;
-import com.motocycleway.entities.ObstacleCar;
 import com.motocycleway.entities.ObstacleCarManager;
 import com.motocycleway.entities.Score;
 import com.motocycleway.street.LinesManager;
+
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -23,7 +26,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     static private ObstacleCarManager obstacleCarManager;
     private LinesManager linesManager;
     private Score score;
-
+    private String loser = getResources().getString(R.string.loser);
     public GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
@@ -41,6 +44,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         thread.setRunning(true);
         thread.start();
 
+
     }
 
     @Override
@@ -51,6 +55,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
+        new GameOver(getHolder(),loser);
+        getContext().getApplicationContext().startActivity(new Intent(getContext().getApplicationContext(),MenuActivity.class));
 
         while (retry){
             try{
@@ -62,17 +68,36 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
             retry = false;
         }
+
     }
 
     public void update() {
+        if(!CrashDetector.motoCrashWithCar(obstacleCarManager.getMainLineList())) {
             linesManager.update();
             motobike.update();
             obstacleCarManager.update();
-            CrashDetector.motoCrashWithCar(obstacleCarManager.getMainLineList());
-            score.update(motobike.getPositionPoint());
 
+            score.update(motobike.getPositionPoint());
+        }
+        else{
+            linesManager.update();
+            motobike.update();
+            obstacleCarManager.update();
+            score.update(motobike.getPositionPoint());
+            saveScore(score.getScore());
+
+
+            surfaceDestroyed(getHolder());
+
+
+        }
 
     }
+
+    private void saveScore(int score) {
+        ScoreManager.getScoreManager().saveScore(score);
+    }
+
 
     @Override
     public void draw(Canvas canvas) {
@@ -80,9 +105,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if(canvas!=null){
             linesManager.draw(canvas);
             motobike.draw(canvas);
-           obstacleCarManager.draw(canvas);
+            obstacleCarManager.draw(canvas);
             score.draw(canvas);
-
         }
 
     }

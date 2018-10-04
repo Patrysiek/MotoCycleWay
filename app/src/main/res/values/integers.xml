@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="saved_first_score_key">0</integer>
+    <integer name="saved_second_score_key">0</integer>
+    <integer name="saved_third_score_key">0</integer>
+</resources>

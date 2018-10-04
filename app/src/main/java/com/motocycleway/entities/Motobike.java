@@ -3,14 +3,13 @@ package com.motocycleway.entities;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.util.Log;
 
 import com.motocycleway.activities.SettingsActivity;
 
 
 public class Motobike {
 
-    Bitmap bitmap;
+    private Bitmap bitmap;
     private float x;
     private float y;
     private float speed = 3;
@@ -64,19 +63,16 @@ public class Motobike {
         return positionPoint;
     }
 
-    public float getX() {
-        return x;
-    }
 
-    public float getY() {
-        return y;
-    }
 
     public boolean overlaps(ObstacleCar car) {
 
-        if (((  (this.y + this.bitmap.getHeight()) > car.getY() && (this.y + this.bitmap.getHeight()) < car.getY() + car.getHeight()  )) ||
-                ((this.y > car.getY() && this.y < (car.getY() + car.getHeight()) ))) {
-            return true;
+        if(this.x <= car.getX() && this.x>=(car.getX()+car.getX()+car.getWidth()) ||
+                (this.x+this.bitmap.getWidth())>car.getX()&&(this.x+this.bitmap.getWidth())<(car.getX()+car.getWidth())) {
+            if ((this.y-50 + this.bitmap.getHeight()) > car.getY() && (this.y-50 + this.bitmap.getHeight()) < (car.getY() + car.getHeight()) ||
+                    this.y+50 > car.getY() && this.y+50 < (car.getY() + car.getHeight())) {
+                return true;
+            }
         }
         return false;
     }

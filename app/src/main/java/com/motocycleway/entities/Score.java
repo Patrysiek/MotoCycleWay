@@ -40,4 +40,8 @@ public class Score {
     public void draw(Canvas canvas){
         canvas.drawText(String.valueOf(score), 10,10,paint);
     }
+
+    public int getScore() {
+        return score;
+    }
 }
